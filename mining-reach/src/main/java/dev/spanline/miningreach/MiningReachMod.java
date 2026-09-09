@@ -1,20 +1,16 @@
 package dev.spanline.miningreach;
 
-import net.fabricmc.api.ModInitializer;
+import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class MiningReachMod implements ModInitializer {
-	public static final String MOD_ID = "spanline-mining-reach";
+@Mod(MiningReachMod.MOD_ID)
+public final class MiningReachMod {
+	public static final String MOD_ID = "spanline_mining_reach";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	@Override
-	public void onInitialize() {
+	public MiningReachMod() {
 		MiningReachConfig.load();
-		LOGGER.info(
-			"Mining Reach loaded (extraBlocks={}, affectCreative={})",
-			MiningReachConfig.get().extraBlocks,
-			MiningReachConfig.get().affectCreative
-		);
+		LOGGER.info("Mining Reach loaded (extraBlocks={})", MiningReachConfig.get().extraBlocks);
 	}
 }

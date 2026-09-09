@@ -1,15 +1,15 @@
 package dev.spanline.infinitewater;
 
-import net.fabricmc.api.ModInitializer;
+import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class InfiniteWaterMod implements ModInitializer {
-	public static final String MOD_ID = "spanline-infinite-water";
+@Mod(InfiniteWaterMod.MOD_ID)
+public final class InfiniteWaterMod {
+	public static final String MOD_ID = "spanline_infinite_water";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	@Override
-	public void onInitialize() {
+	public InfiniteWaterMod() {
 		InfiniteWaterConfig.load();
 		LOGGER.info("Infinite Water loaded (enabled={})", InfiniteWaterConfig.get().enabled);
 	}

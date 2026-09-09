@@ -1,6 +1,6 @@
 # Spanline — Minecraft Utility Mods
 
-Fünf kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig und kann allein oder zusammen installiert werden.
+Fünf kleine **Forge**-Mods für **Minecraft 1.21.11**. Jede Mod ist unabhängig und kann allein oder zusammen installiert werden.
 
 **Repository:** https://github.com/lolalpha00gamma/minecraft-utility-mods
 
@@ -16,14 +16,15 @@ Fünf kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig
 
 ## Voraussetzungen
 
-- Minecraft **Java Edition 1.21.8**
-- [Fabric Loader](https://fabricmc.net/use/) **0.19.5+**
-- [Fabric API](https://modrinth.com/mod/fabric-api) für 1.21.8
-- Java **21** zum Bauen
+- Minecraft **Java Edition 1.21.11**
+- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.21.11.html) **61.2.1** (oder 61.x)
+- Java **21** zum Spielen und Bauen
+
+Keine extra API-Mod nötig — Forge reicht.
 
 ## Bauen
 
-Java 21 und Gradle 9.5+ (oder das Wrapper-JAR aus dem Fabric Example Mod) werden benötigt.
+Java 21 und Gradle 9.3+ (Wrapper 9.5.1).
 
 ```bash
 # Alle Mods
@@ -37,7 +38,7 @@ Java 21 und Gradle 9.5+ (oder das Wrapper-JAR aus dem Fabric Example Mod) werden
 ./gradlew :villager-lead:build
 ```
 
-Die fertigen JARs liegen in `*/build/libs/*-1.0.0.jar`. Nach `.minecraft/mods/` kopieren (zusammen mit Fabric API).
+Die fertigen JARs liegen in `*/build/libs/*-1.1.0.jar`. Nach `.minecraft/mods/` kopieren.
 
 Falls kein `gradlew` existiert:
 
@@ -48,11 +49,11 @@ gradle wrapper --gradle-version 9.5.1
 
 ---
 
-## 1. Infinite Water (`spanline-infinite-water`)
+## 1. Infinite Water (`spanline_infinite_water`)
 
 Volle Wassereimer **bleiben voll**, wenn du Wasser platzierst. Leere Eimer **bleiben leer**, wenn du eine Wasserquelle aufnimmst — die Quelle verschwindet trotzdem.
 
-**Config:** `config/spanline-infinite-water.json`
+**Config:** `config/spanline_infinite_water.json`
 
 ```json
 {
@@ -62,11 +63,11 @@ Volle Wassereimer **bleiben voll**, wenn du Wasser platzierst. Leere Eimer **ble
 
 ---
 
-## 2. Mining Reach (`spanline-mining-reach`)
+## 2. Mining Reach (`spanline_mining_reach`)
 
 Addiert extra Blöcke auf die Vanilla-Blockreichweite. Gilt für Abbauen und Platzieren.
 
-**Config:** `config/spanline-mining-reach.json`
+**Config:** `config/spanline_mining_reach.json`
 
 ```json
 {
@@ -77,11 +78,11 @@ Addiert extra Blöcke auf die Vanilla-Blockreichweite. Gilt für Abbauen und Pla
 
 ---
 
-## 3. Beacon Range (`spanline-beacon-range`)
+## 3. Beacon Range (`spanline_beacon_range`)
 
 Vanilla-Formel: `Stufe × 10 + 10`. Die Mod skaliert diesen Radius.
 
-**Config:** `config/spanline-beacon-range.json`
+**Config:** `config/spanline_beacon_range.json`
 
 ```json
 {
@@ -92,11 +93,11 @@ Vanilla-Formel: `Stufe × 10 + 10`. Die Mod skaliert diesen Radius.
 
 ---
 
-## 4. Elytra Speed (`spanline-elytra-speed`)
+## 4. Elytra Speed (`spanline_elytra_speed`)
 
 Zusätzlicher Schub in Blickrichtung während des Gleitens. `speedMultiplier` 2.0 verdoppelt den Vanilla-Look-Schub (0.1). Geschwindigkeit wird bei `maxSpeed` gekappt (Blöcke pro Tick).
 
-**Config:** `config/spanline-elytra-speed.json`
+**Config:** `config/spanline_elytra_speed.json`
 
 ```json
 {
@@ -105,11 +106,9 @@ Zusätzlicher Schub in Blickrichtung während des Gleitens. `speedMultiplier` 2.
 }
 ```
 
-Multiplier 0.25–8, MaxSpeed 1–20.
-
 ---
 
-## 5. Villager Lead (`spanline-villager-lead`)
+## 5. Villager Lead (`spanline_villager_lead`)
 
 Vanilla verbietet Leinen an Villagern. Die Mod erlaubt Leinen für Villager und Wanderhändler. An der Leine:
 
@@ -117,7 +116,7 @@ Vanilla verbietet Leinen an Villagern. Die Mod erlaubt Leinen für Villager und 
 - Hop nach oben, wenn der Halter höher steht oder ein Block im Weg ist
 - etwas zügigere Leinen-Follow-Geschwindigkeit
 
-**Config:** `config/spanline-villager-lead.json`
+**Config:** `config/spanline_villager_lead.json`
 
 ```json
 {

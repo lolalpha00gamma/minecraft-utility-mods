@@ -1,10 +1,17 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}" apply false
+	id 'java' apply false
+	id 'idea' apply false
+	id 'eclipse' apply false
+	id 'maven-publish' apply false
+	id 'net.minecraftforge.gradle' version '[7.0.23,8.0)' apply false
 }
 
 subprojects {
-	apply plugin: 'net.fabricmc.fabric-loom-remap'
+	apply plugin: 'java'
+	apply plugin: 'idea'
+	apply plugin: 'eclipse'
 	apply plugin: 'maven-publish'
+	apply plugin: 'net.minecraftforge.gradle'
 
 	version = rootProject.mod_version
 	group = rootProject.maven_group
@@ -13,21 +20,41 @@ subprojects {
 		archivesName = project.name
 	}
 
+	java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+	minecraft {
+		mappings channel: 'official', version: rootProject.minecraft_version
+
+		runs {
+			configureEach {
+				workingDir.convention layout.projectDirectory.dir('run')
+				systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+				args "--mixin.config=${project.name}.mixins.json"
+			}
+
+			register('client')
+			register('server') {
+				args '--nogui'
+			}
+		}
+	}
+
 	repositories {
+		minecraft.mavenizer(it)
+		maven fg.forgeMaven
+		maven fg.minecraftLibsMaven
 		mavenCentral()
 	}
 
 	dependencies {
-		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-		mappings loom.officialMojangMappings()
-		modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-		modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+		implementation minecraft.dependency("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
+		annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
 	}
 
 	processResources {
-		def ver = project.version
+		def ver = project.version.toString()
 		inputs.property 'version', ver
-		filesMatching('fabric.mod.json') {
+		filesMatching('META-INF/mods.toml') {
 			expand 'version': ver
 		}
 	}
@@ -43,9 +70,17 @@ subprojects {
 		targetCompatibility = JavaVersion.VERSION_21
 	}
 
-	jar {
+	tasks.named('jar', Jar) {
 		from(rootProject.file('LICENSE')) {
 			rename { "${it}_${project.name}" }
+		}
+		manifest {
+			attributes['MixinConfigs'] = "${project.name}.mixins.json"
+			attributes['Specification-Title'] = project.name
+			attributes['Specification-Vendor'] = 'Tony Rogers'
+			attributes['Implementation-Title'] = project.name
+			attributes['Implementation-Version'] = project.version
+			attributes['Implementation-Vendor'] = 'Tony Rogers'
 		}
 	}
 

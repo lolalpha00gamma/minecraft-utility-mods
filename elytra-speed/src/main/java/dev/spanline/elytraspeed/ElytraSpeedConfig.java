@@ -2,7 +2,7 @@ package dev.spanline.elytraspeed;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -32,7 +32,7 @@ public final class ElytraSpeedConfig {
 	}
 
 	public static void load() {
-		Path path = FabricLoader.getInstance().getConfigDir().resolve("spanline-elytra-speed.json");
+		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_elytra_speed.json");
 		if (Files.isRegularFile(path)) {
 			try (Reader reader = Files.newBufferedReader(path)) {
 				ElytraSpeedConfig loaded = GSON.fromJson(reader, ElytraSpeedConfig.class);
@@ -47,7 +47,7 @@ public final class ElytraSpeedConfig {
 	}
 
 	public static void save() {
-		Path path = FabricLoader.getInstance().getConfigDir().resolve("spanline-elytra-speed.json");
+		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_elytra_speed.json");
 		try {
 			Files.createDirectories(path.getParent());
 			try (Writer writer = Files.newBufferedWriter(path)) {

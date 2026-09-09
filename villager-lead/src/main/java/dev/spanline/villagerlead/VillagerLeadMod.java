@@ -1,20 +1,16 @@
 package dev.spanline.villagerlead;
 
-import net.fabricmc.api.ModInitializer;
+import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class VillagerLeadMod implements ModInitializer {
-	public static final String MOD_ID = "spanline-villager-lead";
+@Mod(VillagerLeadMod.MOD_ID)
+public final class VillagerLeadMod {
+	public static final String MOD_ID = "spanline_villager_lead";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	@Override
-	public void onInitialize() {
+	public VillagerLeadMod() {
 		VillagerLeadConfig.load();
-		LOGGER.info(
-			"Villager Lead loaded (stepHeight={}, climbBoost={})",
-			VillagerLeadConfig.get().stepHeight,
-			VillagerLeadConfig.get().climbBoost
-		);
+		LOGGER.info("Villager Lead loaded (stepHeight={}, climbBoost={})", VillagerLeadConfig.get().stepHeight, VillagerLeadConfig.get().climbBoost);
 	}
 }

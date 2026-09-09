@@ -2,7 +2,7 @@ package dev.spanline.miningreach;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -30,7 +30,7 @@ public final class MiningReachConfig {
 	}
 
 	public static void load() {
-		Path path = FabricLoader.getInstance().getConfigDir().resolve("spanline-mining-reach.json");
+		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_mining_reach.json");
 		if (Files.isRegularFile(path)) {
 			try (Reader reader = Files.newBufferedReader(path)) {
 				MiningReachConfig loaded = GSON.fromJson(reader, MiningReachConfig.class);
@@ -46,7 +46,7 @@ public final class MiningReachConfig {
 	}
 
 	public static void save() {
-		Path path = FabricLoader.getInstance().getConfigDir().resolve("spanline-mining-reach.json");
+		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_mining_reach.json");
 		try {
 			Files.createDirectories(path.getParent());
 			try (Writer writer = Files.newBufferedWriter(path)) {
