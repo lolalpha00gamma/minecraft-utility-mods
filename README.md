@@ -1,6 +1,6 @@
 # Spanline — Minecraft Utility Mods
 
-Drei kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig und kann allein oder zusammen installiert werden.
+Fünf kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig und kann allein oder zusammen installiert werden.
 
 **Repository:** https://github.com/lolalpha00gamma/minecraft-utility-mods
 
@@ -9,6 +9,8 @@ Drei kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig 
 | **Infinite Water** | Volle Wassereimer bleiben voll (unendlich platzieren). Leere Eimer bleiben leer (unendlich Wasser aufnehmen). |
 | **Mining Reach** | Erhöht die Block-Reichweite beim Abbauen und Platzieren. Standard: **+8 Blöcke** (Vanilla 4.5 → 12.5). |
 | **Beacon Range** | Vergrößert den Wirkungsradius von Beacons. Standard: **×3** (Stufe 4: 50 → 150 Blöcke). |
+| **Elytra Speed** | Elytra-Schub anpassbar. Standard: **×2**, Cap 6 Blöcke/Tick. |
+| **Villager Lead** | Villager und Wanderhändler an die Leine. Sie steigen über volle Blöcke nach, wenn du sie ziehst. |
 
 ---
 
@@ -24,22 +26,18 @@ Drei kleine **Fabric**-Mods für **Minecraft 1.21.8**. Jede Mod ist unabhängig 
 Java 21 und Gradle 9.5+ (oder das Wrapper-JAR aus dem Fabric Example Mod) werden benötigt.
 
 ```bash
-# Alle drei Mods
+# Alle Mods
 ./gradlew build
 
 # Einzelne Mod
 ./gradlew :infinite-water:build
 ./gradlew :mining-reach:build
 ./gradlew :beacon-range:build
+./gradlew :elytra-speed:build
+./gradlew :villager-lead:build
 ```
 
-Die fertigen JARs liegen in:
-
-- `infinite-water/build/libs/infinite-water-1.0.0.jar`
-- `mining-reach/build/libs/mining-reach-1.0.0.jar`
-- `beacon-range/build/libs/beacon-range-1.0.0.jar`
-
-JARs nach `.minecraft/mods/` kopieren (zusammen mit Fabric API).
+Die fertigen JARs liegen in `*/build/libs/*-1.0.0.jar`. Nach `.minecraft/mods/` kopieren (zusammen mit Fabric API).
 
 Falls kein `gradlew` existiert:
 
@@ -54,8 +52,6 @@ gradle wrapper --gradle-version 9.5.1
 
 Volle Wassereimer **bleiben voll**, wenn du Wasser platzierst. Leere Eimer **bleiben leer**, wenn du eine Wasserquelle aufnimmst — die Quelle verschwindet trotzdem.
 
-Lava, Pulverschnee und Fisch-/Axolotl-Eimer bleiben unverändert.
-
 **Config:** `config/spanline-infinite-water.json`
 
 ```json
@@ -68,7 +64,7 @@ Lava, Pulverschnee und Fisch-/Axolotl-Eimer bleiben unverändert.
 
 ## 2. Mining Reach (`spanline-mining-reach`)
 
-Addiert extra Blöcke auf die Vanilla-Blockreichweite (`blockInteractionRange`, Survival 4.5). Gilt für Abbauen und Platzieren.
+Addiert extra Blöcke auf die Vanilla-Blockreichweite. Gilt für Abbauen und Platzieren.
 
 **Config:** `config/spanline-mining-reach.json`
 
@@ -79,15 +75,11 @@ Addiert extra Blöcke auf die Vanilla-Blockreichweite (`blockInteractionRange`, 
 }
 ```
 
-`extraBlocks` wird auf 0–64 begrenzt.
-
 ---
 
 ## 3. Beacon Range (`spanline-beacon-range`)
 
-Vanilla-Formel: `Stufe × 10 + 10`. Die Mod skaliert diesen Radius:
-
-`neuer Radius = Vanilla-Radius × rangeMultiplier + rangeBonus`
+Vanilla-Formel: `Stufe × 10 + 10`. Die Mod skaliert diesen Radius.
 
 **Config:** `config/spanline-beacon-range.json`
 
@@ -98,14 +90,43 @@ Vanilla-Formel: `Stufe × 10 + 10`. Die Mod skaliert diesen Radius:
 }
 ```
 
-| Stufe | Vanilla | Mit ×3 |
-| --- | --- | --- |
-| 1 | 20 | 60 |
-| 2 | 30 | 90 |
-| 3 | 40 | 120 |
-| 4 | 50 | 150 |
+---
 
-Effekte und Dauer bleiben vanilla. Config-Werte: Multiplier 0.1–50, Bonus 0–10000.
+## 4. Elytra Speed (`spanline-elytra-speed`)
+
+Zusätzlicher Schub in Blickrichtung während des Gleitens. `speedMultiplier` 2.0 verdoppelt den Vanilla-Look-Schub (0.1). Geschwindigkeit wird bei `maxSpeed` gekappt (Blöcke pro Tick).
+
+**Config:** `config/spanline-elytra-speed.json`
+
+```json
+{
+  "speedMultiplier": 2.0,
+  "maxSpeed": 6.0
+}
+```
+
+Multiplier 0.25–8, MaxSpeed 1–20.
+
+---
+
+## 5. Villager Lead (`spanline-villager-lead`)
+
+Vanilla verbietet Leinen an Villagern. Die Mod erlaubt Leinen für Villager und Wanderhändler. An der Leine:
+
+- höhere Schritt-Höhe (Standard 1.25 → volle Blöcke)
+- Hop nach oben, wenn der Halter höher steht oder ein Block im Weg ist
+- etwas zügigere Leinen-Follow-Geschwindigkeit
+
+**Config:** `config/spanline-villager-lead.json`
+
+```json
+{
+  "enabled": true,
+  "stepHeight": 1.25,
+  "climbBoost": 0.42,
+  "followSpeed": 1.25
+}
+```
 
 ---
 

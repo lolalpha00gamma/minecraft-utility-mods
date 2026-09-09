@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-villager-lead",
+	"version": "${version}",
+	"name": "Spanline Villager Lead",
+	"description": "Villager und Wanderhändler lassen sich an die Leine nehmen und über Blöcke nach oben ziehen.",
+	"authors": [
+		"Tony Rogers"
+	],
+	"contact": {
+		"sources": "https://github.com/lolalpha00gamma/minecraft-utility-mods",
+		"homepage": "https://github.com/lolalpha00gamma/minecraft-utility-mods"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.spanline.villagerlead.VillagerLeadMod"
+		]
+	},
+	"mixins": [
+		"villager-lead.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
