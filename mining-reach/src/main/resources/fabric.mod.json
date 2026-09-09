@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-mining-reach",
+	"version": "${version}",
+	"name": "Spanline Mining Reach",
+	"description": "Erhöht die Block-Reichweite beim Abbauen und Platzieren. Standard +8 Blöcke.",
+	"authors": [
+		"Tony Rogers"
+	],
+	"contact": {
+		"sources": "https://github.com/lolalpha00gamma/minecraft-utility-mods",
+		"homepage": "https://github.com/lolalpha00gamma/minecraft-utility-mods"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.spanline.miningreach.MiningReachMod"
+		]
+	},
+	"mixins": [
+		"mining-reach.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

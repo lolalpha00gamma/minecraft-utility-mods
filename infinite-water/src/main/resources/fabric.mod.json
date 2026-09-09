@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-infinite-water",
+	"version": "${version}",
+	"name": "Spanline Infinite Water",
+	"description": "Volle Wassereimer bleiben voll, leere Eimer bleiben leer. Unendlich Wasser platzieren und aufnehmen.",
+	"authors": [
+		"Tony Rogers"
+	],
+	"contact": {
+		"sources": "https://github.com/lolalpha00gamma/minecraft-utility-mods",
+		"homepage": "https://github.com/lolalpha00gamma/minecraft-utility-mods"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.spanline.infinitewater.InfiniteWaterMod"
+		]
+	},
+	"mixins": [
+		"infinite-water.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

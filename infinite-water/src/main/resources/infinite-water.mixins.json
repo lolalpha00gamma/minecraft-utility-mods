@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "dev.spanline.infinitewater.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"BucketItemMixin",
+		"ItemInvoker"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

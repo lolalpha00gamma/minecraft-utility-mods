@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-beacon-range",
+	"version": "${version}",
+	"name": "Spanline Beacon Range",
+	"description": "Vergrößert den Wirkungsradius von Beacons. Standard: dreifache Reichweite.",
+	"authors": [
+		"Tony Rogers"
+	],
+	"contact": {
+		"sources": "https://github.com/lolalpha00gamma/minecraft-utility-mods",
+		"homepage": "https://github.com/lolalpha00gamma/minecraft-utility-mods"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.spanline.beaconrange.BeaconRangeMod"
+		]
+	},
+	"mixins": [
+		"beacon-range.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

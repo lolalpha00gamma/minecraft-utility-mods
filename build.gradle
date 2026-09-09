@@ -1,0 +1,59 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}" apply false
+}
+
+subprojects {
+	apply plugin: 'net.fabricmc.fabric-loom-remap'
+	apply plugin: 'maven-publish'
+
+	version = rootProject.mod_version
+	group = rootProject.maven_group
+
+	base {
+		archivesName = project.name
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+		mappings loom.officialMojangMappings()
+		modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+		modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+	}
+
+	processResources {
+		def ver = project.version
+		inputs.property 'version', ver
+		filesMatching('fabric.mod.json') {
+			expand 'version': ver
+		}
+	}
+
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+		it.options.encoding = 'UTF-8'
+	}
+
+	java {
+		withSourcesJar()
+		sourceCompatibility = JavaVersion.VERSION_21
+		targetCompatibility = JavaVersion.VERSION_21
+	}
+
+	jar {
+		from(rootProject.file('LICENSE')) {
+			rename { "${it}_${project.name}" }
+		}
+	}
+
+	publishing {
+		publications {
+			create('mavenJava', MavenPublication) {
+				from components.java
+			}
+		}
+	}
+}
