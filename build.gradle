@@ -1,8 +1,4 @@
 plugins {
-	id 'java' apply false
-	id 'idea' apply false
-	id 'eclipse' apply false
-	id 'maven-publish' apply false
 	id 'net.minecraftforge.gradle' version '[7.0.23,8.0)' apply false
 }
 

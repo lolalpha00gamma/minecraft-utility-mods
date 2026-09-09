@@ -1,0 +1,45 @@
+name: Build Forge JARs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build mods
+        run: ./gradlew build --no-daemon --stacktrace
+
+      - name: Collect JARs
+        run: |
+          mkdir -p dist
+          find . -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
+          ls -la dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spanline-mods-1.21.11
+          path: dist/*.jar
+
+      - name: Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.1.0
+          name: Spanline 1.1.0 — Forge 1.21.11
+          body: |
+            Fertige Forge-JARs für Minecraft 1.21.11 (Forge 61.2.1).
+            In den Ordner `.minecraft/mods/` legen.
+          files: dist/*.jar
+          make_latest: true
