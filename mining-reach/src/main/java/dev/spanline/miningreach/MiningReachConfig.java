@@ -2,7 +2,6 @@ package dev.spanline.miningreach;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -21,6 +20,22 @@ public final class MiningReachConfig {
 
 	private MiningReachConfig() {}
 
+	private static Path configDir() {
+		try {
+			Class<?> paths = Class.forName("net.minecraftforge.fml.loading.FMLPaths");
+			Object dir = paths.getField("CONFIGDIR").get(null);
+			return (Path) dir.getClass().getMethod("get").invoke(dir);
+		} catch (Throwable ignored) {
+		}
+		try {
+			Class<?> loader = Class.forName("net.fabricmc.loader.api.FabricLoader");
+			Object inst = loader.getMethod("getInstance").invoke(null);
+			return (Path) inst.getClass().getMethod("getConfigDir").invoke(inst);
+		} catch (Throwable ignored) {
+		}
+		return Path.of("config");
+	}
+
 	public static MiningReachConfig get() {
 		return instance;
 	}
@@ -30,7 +45,7 @@ public final class MiningReachConfig {
 	}
 
 	public static void load() {
-		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_mining_reach.json");
+		Path path = configDir().resolve("spanline_mining_reach.json");
 		if (Files.isRegularFile(path)) {
 			try (Reader reader = Files.newBufferedReader(path)) {
 				MiningReachConfig loaded = GSON.fromJson(reader, MiningReachConfig.class);
@@ -46,7 +61,7 @@ public final class MiningReachConfig {
 	}
 
 	public static void save() {
-		Path path = FMLPaths.CONFIGDIR.get().resolve("spanline_mining_reach.json");
+		Path path = configDir().resolve("spanline_mining_reach.json");
 		try {
 			Files.createDirectories(path.getParent());
 			try (Writer writer = Files.newBufferedWriter(path)) {

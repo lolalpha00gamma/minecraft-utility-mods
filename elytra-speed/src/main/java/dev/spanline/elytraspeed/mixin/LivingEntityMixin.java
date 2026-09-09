@@ -4,32 +4,20 @@ import dev.spanline.elytraspeed.ElytraSpeedConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-	@Shadow
-	public abstract boolean isFallFlying();
-
-	@Shadow
-	public abstract Vec3 getLookAngle();
-
-	@Shadow
-	public abstract Vec3 getDeltaMovement();
-
-	@Shadow
-	public abstract void setDeltaMovement(Vec3 motion);
-
 	/**
 	 * Extra look-direction thrust after vanilla elytra physics.
 	 * {@code speedMultiplier} 2.0 doubles the 0.1 vanilla look acceleration.
 	 */
-	@Inject(method = "travel", at = @At("TAIL"))
+	@Inject(method = "travel", at = @At("TAIL"), require = 0)
 	private void spanline$boostElytra(Vec3 input, CallbackInfo ci) {
-		if (!this.isFallFlying()) {
+		LivingEntity self = (LivingEntity) (Object) this;
+		if (!self.isFallFlying()) {
 			return;
 		}
 
@@ -40,11 +28,11 @@ public abstract class LivingEntityMixin {
 		}
 
 		double extraThrust = (multiplier - 1.0) * 0.1;
-		Vec3 boosted = this.getDeltaMovement().add(this.getLookAngle().scale(extraThrust));
+		Vec3 boosted = self.getDeltaMovement().add(self.getLookAngle().scale(extraThrust));
 		double max = config.clampedMaxSpeed();
 		if (boosted.length() > max) {
 			boosted = boosted.normalize().scale(max);
 		}
-		this.setDeltaMovement(boosted);
+		self.setDeltaMovement(boosted);
 	}
 }

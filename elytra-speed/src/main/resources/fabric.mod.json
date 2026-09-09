@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-elytra-speed",
+	"version": "1.1.0",
+	"name": "Spanline Elytra Speed",
+	"description": "Spanline Elytra Speed for Minecraft 1.21.11",
+	"authors": ["Tony Rogers"],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.spanline.elytraspeed.FabricInit"]
+	},
+	"mixins": ["elytra-speed.mixins.json"],
+	"depends": {
+		"minecraft": "~1.21.11",
+		"java": ">=21"
+	}
+}

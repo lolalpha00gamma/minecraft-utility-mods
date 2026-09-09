@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "spanline-mining-reach",
+	"version": "1.1.0",
+	"name": "Spanline Mining Reach",
+	"description": "Spanline Mining Reach for Minecraft 1.21.11",
+	"authors": ["Tony Rogers"],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.spanline.miningreach.FabricInit"]
+	},
+	"mixins": ["mining-reach.mixins.json"],
+	"depends": {
+		"minecraft": "~1.21.11",
+		"java": ">=21"
+	}
+}
