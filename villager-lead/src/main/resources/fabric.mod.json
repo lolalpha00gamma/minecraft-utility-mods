@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "spanline-villager-lead",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"name": "Spanline Villager Lead",
 	"description": "Spanline Villager Lead for Minecraft 1.21.11",
 	"authors": ["Tony Rogers"],

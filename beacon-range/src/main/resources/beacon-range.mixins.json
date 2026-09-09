@@ -8,6 +8,5 @@
 	"injectors": {
 		"defaultRequire": 1
 	},
-	"minVersion": "0.8",
-	"refmap": "beacon-range.refmap.json"
+	"minVersion": "0.8"
 }

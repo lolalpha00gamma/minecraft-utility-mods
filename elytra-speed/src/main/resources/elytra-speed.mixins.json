@@ -8,6 +8,5 @@
 	"injectors": {
 		"defaultRequire": 1
 	},
-	"minVersion": "0.8",
-	"refmap": "elytra-speed.refmap.json"
+	"minVersion": "0.8"
 }

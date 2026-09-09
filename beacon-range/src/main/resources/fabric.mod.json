@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "spanline-beacon-range",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"name": "Spanline Beacon Range",
 	"description": "Spanline Beacon Range for Minecraft 1.21.11",
 	"authors": ["Tony Rogers"],

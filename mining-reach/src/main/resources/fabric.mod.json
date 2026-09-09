@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "spanline-mining-reach",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"name": "Spanline Mining Reach",
 	"description": "Spanline Mining Reach for Minecraft 1.21.11",
 	"authors": ["Tony Rogers"],
